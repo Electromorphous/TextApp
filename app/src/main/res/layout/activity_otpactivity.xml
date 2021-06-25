@@ -67,7 +67,7 @@
                 android:layout_marginTop="5dp"
                 android:inputType="number"
                 android:itemBackground="@color/grey"
-                android:textColor="@android:color/white"
+                android:focusableInTouchMode="true"
                 app:OtpItemCount="6"
                 app:OtpLineColor="@color/green"
                 app:OtpViewType="line" />
