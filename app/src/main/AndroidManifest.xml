@@ -7,10 +7,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TextApp">
-        <activity android:name=".OTPActivity"></activity>
+        android:theme="@style/Theme.TextApp"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".SetupProfileActivity"></activity>
+        <activity android:name=".OTPActivity" />
         <activity android:name=".PhoneNumberActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
