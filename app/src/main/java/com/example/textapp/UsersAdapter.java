@@ -1,11 +1,11 @@
 package com.example.textapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +38,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
         holder.binding.username.setText(user.getName());
 
         Glide.with(context).load(user.getProfileImage()).placeholder(R.drawable.avatar).into(holder.binding.profile);
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ChatActivity.class);
+            intent.putExtra("name", user.getName());
+            intent.putExtra("uid", user.getUid());
+            context.startActivity(intent);
+        });
     }
 
     @Override

@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TextApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SetupProfileActivity"></activity>
+        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".SetupProfileActivity" />
         <activity android:name=".OTPActivity" />
         <activity android:name=".PhoneNumberActivity">
             <intent-filter>
