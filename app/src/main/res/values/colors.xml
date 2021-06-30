@@ -10,4 +10,5 @@
 
     <color name="grey">#EEEEEE</color>
     <color name="green">#4CAF50</color>
+    <color name="greenDark">#127516</color>
 </resources>
