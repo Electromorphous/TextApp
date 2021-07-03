@@ -1,4 +1,4 @@
-package com.example.textapp;
+package com.example.textapp.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 
+import com.example.textapp.R;
+import com.example.textapp.Models.User;
+import com.example.textapp.Adapters.UsersAdapter;
 import com.example.textapp.databinding.ActivityMainBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

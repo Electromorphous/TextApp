@@ -1,4 +1,4 @@
-package com.example.textapp;
+package com.example.textapp.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

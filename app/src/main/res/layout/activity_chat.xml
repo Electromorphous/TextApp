@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:context=".ChatActivity">
+    tools:context=".Activities.ChatActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -33,7 +33,7 @@
 
             <EditText
                 android:id="@+id/messageBox"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
@@ -46,24 +46,31 @@
                 android:id="@+id/attachment"
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
                 android:background="?android:attr/selectableItemBackground"
                 app:srcCompat="@drawable/ic_attachment"
-                app:tint="#333"
-
-                />
+                app:tint="#333" />
 
             <ImageView
                 android:id="@+id/camera"
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
                 android:background="?android:attr/selectableItemBackground"
                 app:srcCompat="@drawable/ic_camera"
                 app:tint="#333" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/sendButton"
@@ -77,12 +84,4 @@
         app:layout_constraintTop_toTopOf="@+id/cardView"
         app:srcCompat="@drawable/ic_send"
         app:tint="#FFFFFF" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

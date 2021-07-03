@@ -1,4 +1,4 @@
-package com.example.textapp;
+package com.example.textapp.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +34,7 @@ public class OTPActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         dialog = new ProgressDialog(this);
-        dialog.setMessage("Sending OTP...");
+        dialog.setMessage("Sending OTP");
         dialog.setCancelable(false);
         dialog.show();
 

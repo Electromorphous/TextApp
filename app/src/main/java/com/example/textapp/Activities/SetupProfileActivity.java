@@ -1,4 +1,4 @@
-package com.example.textapp;
+package com.example.textapp.Activities;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.example.textapp.Models.User;
 import com.example.textapp.databinding.ActivitySetupProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -35,7 +36,7 @@ public class SetupProfileActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         dialog = new ProgressDialog(this);
-        dialog.setMessage("Updating profile...");
+        dialog.setMessage("Updating profile");
         dialog.setCancelable(false);
 
         auth = FirebaseAuth.getInstance();

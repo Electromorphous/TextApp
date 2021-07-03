@@ -10,17 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TextApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ChatActivity"></activity>
-        <activity android:name=".SetupProfileActivity" />
-        <activity android:name=".OTPActivity" />
-        <activity android:name=".PhoneNumberActivity">
+        <activity android:name=".Activities.ChatActivity"></activity>
+        <activity android:name=".Activities.SetupProfileActivity" />
+        <activity android:name=".Activities.OTPActivity" />
+        <activity android:name=".Activities.PhoneNumberActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Activities.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
