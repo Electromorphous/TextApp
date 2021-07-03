@@ -36,7 +36,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityChatBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.activity_chat);
+        setContentView(binding.getRoot());
 
         messages = new ArrayList<>();
         adapter = new MessagesAdapter(this, messages);
@@ -74,6 +74,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     }
                 });
+
 
         binding.sendButton.setOnClickListener(v -> {
 

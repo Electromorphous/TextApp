@@ -84,4 +84,5 @@
         app:layout_constraintTop_toTopOf="@+id/cardView"
         app:srcCompat="@drawable/ic_send"
         app:tint="#FFFFFF" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
