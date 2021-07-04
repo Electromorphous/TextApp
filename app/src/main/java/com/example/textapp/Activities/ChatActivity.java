@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.example.textapp.Adapters.MessagesAdapter;
 import com.example.textapp.Models.Message;
-import com.example.textapp.R;
 import com.example.textapp.databinding.ActivityChatBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -39,10 +38,6 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         messages = new ArrayList<>();
-        adapter = new MessagesAdapter(this, messages);
-
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        binding.recyclerView.setAdapter(adapter);
 
         String name = getIntent().getStringExtra("name");
         String receiverUid = getIntent().getStringExtra("uid");
@@ -50,6 +45,9 @@ public class ChatActivity extends AppCompatActivity {
 
         senderRoom = senderUid + receiverUid;
         receiverRoom = receiverUid + senderUid;
+        adapter = new MessagesAdapter(this, messages, senderRoom, receiverRoom);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerView.setAdapter(adapter);
 
         database = FirebaseDatabase.getInstance();
 
@@ -60,10 +58,13 @@ public class ChatActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                         messages.clear();
 
                         for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                             Message message = snapshot1.getValue(Message.class);
+                            assert message != null;
+                            message.setMessageId(snapshot1.getKey());
                             messages.add(message);
                         }
                         adapter.notifyDataSetChanged();
@@ -79,23 +80,25 @@ public class ChatActivity extends AppCompatActivity {
         binding.sendButton.setOnClickListener(v -> {
 
             String messageText = binding.messageBox.getText().toString();
-            Toast.makeText(this, "poop", Toast.LENGTH_SHORT).show();
 
             Date date = new Date();
             Message message = new Message(messageText, senderUid, date.getTime());
 
             binding.messageBox.setText("");
 
+            String randomKey = database.getReference().push().getKey();
+
+            assert randomKey != null;
             database.getReference()
                     .child("chats")
                     .child(senderRoom)
                     .child("messages")
-                    .push()
+                    .child(randomKey)
                     .setValue(message)
                     .addOnSuccessListener(unused -> database.getReference().child("chats")
                             .child(receiverRoom)
                             .child("messages")
-                            .push()
+                            .child(randomKey)
                             .setValue(message)
                             .addOnSuccessListener(unused1 -> {
                             }));

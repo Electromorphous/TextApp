@@ -18,13 +18,14 @@
         android:paddingBottom="5dp"
         android:text="TextView"
         android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/reaction"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/message"
         app:layout_constraintEnd_toStartOf="@+id/message"

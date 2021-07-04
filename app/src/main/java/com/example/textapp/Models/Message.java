@@ -3,7 +3,7 @@ package com.example.textapp.Models;
 public class Message {
     private String messageId, message, senderId;
     private long timestamp;
-    private int reaction;
+    private int reaction = -1;
 
     public Message() {
     }
