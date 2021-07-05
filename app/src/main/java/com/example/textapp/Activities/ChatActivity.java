@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity {
@@ -76,32 +77,40 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 });
 
-
         binding.sendButton.setOnClickListener(v -> {
 
             String messageText = binding.messageBox.getText().toString();
 
-            Date date = new Date();
-            Message message = new Message(messageText, senderUid, date.getTime());
+            if (!messageText.isEmpty()) {
 
-            binding.messageBox.setText("");
+                Date date = new Date();
+                Message message = new Message(messageText, senderUid, date.getTime());
 
-            String randomKey = database.getReference().push().getKey();
+                binding.messageBox.setText("");
 
-            assert randomKey != null;
-            database.getReference()
-                    .child("chats")
-                    .child(senderRoom)
-                    .child("messages")
-                    .child(randomKey)
-                    .setValue(message)
-                    .addOnSuccessListener(unused -> database.getReference().child("chats")
-                            .child(receiverRoom)
-                            .child("messages")
-                            .child(randomKey)
-                            .setValue(message)
-                            .addOnSuccessListener(unused1 -> {
-                            }));
+                String randomKey = database.getReference().push().getKey();
+
+                HashMap<String, Object> lastMsgObj = new HashMap<>();
+                lastMsgObj.put("lastMsg", message.getMessage());
+                lastMsgObj.put("lastMsgTime", date.getTime());
+                database.getReference().child("chats").child(senderRoom).updateChildren(lastMsgObj);
+                database.getReference().child("chats").child(receiverRoom).updateChildren(lastMsgObj);
+
+                assert randomKey != null;
+                database.getReference()
+                        .child("chats")
+                        .child(senderRoom)
+                        .child("messages")
+                        .child(randomKey)
+                        .setValue(message)
+                        .addOnSuccessListener(unused -> database.getReference().child("chats")
+                                .child(receiverRoom)
+                                .child("messages")
+                                .child(randomKey)
+                                .setValue(message)
+                                .addOnSuccessListener(unused1 -> {
+                                }));
+            }
         });
 
         Objects.requireNonNull(getSupportActionBar()).setTitle(name);

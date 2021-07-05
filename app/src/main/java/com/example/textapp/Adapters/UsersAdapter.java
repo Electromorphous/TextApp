@@ -14,8 +14,17 @@ import com.example.textapp.Activities.ChatActivity;
 import com.example.textapp.R;
 import com.example.textapp.Models.User;
 import com.example.textapp.databinding.RowConversationBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHolder> {
 
@@ -37,6 +46,37 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
     @Override
     public void onBindViewHolder(@NonNull UsersAdapter.UsersViewHolder holder, int position) {
         User user = users.get(position);
+
+        String senderId = FirebaseAuth.getInstance().getUid();
+        String senderRoom = senderId + user.getUid();
+
+        FirebaseDatabase.getInstance().getReference()
+                .child("chats")
+                .child(senderRoom)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+                        if (snapshot.exists()) {
+
+                            String lastMsg = snapshot.child("lastMsg").getValue(String.class);
+//                            long time = snapshot.child("lastMsgTime").getValue(Long.class);
+
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+                            holder.binding.lastMsg.setText(lastMsg);
+//                            holder.binding.msgTime.setText(dateFormat.format(new Date(time)));
+
+                        } else {
+                            holder.binding.lastMsg.setText("Tap to chat");
+                            holder.binding.msgTime.setText("");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                    }
+                });
 
         holder.binding.username.setText(user.getName());
 
