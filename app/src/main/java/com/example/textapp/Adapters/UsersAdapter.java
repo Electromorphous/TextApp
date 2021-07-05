@@ -60,12 +60,17 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
                         if (snapshot.exists()) {
 
                             String lastMsg = snapshot.child("lastMsg").getValue(String.class);
-//                            long time = snapshot.child("lastMsgTime").getValue(Long.class);
+                            Long timePointer = snapshot.child("lastMsgTime").getValue(Long.class);
 
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
                             holder.binding.lastMsg.setText(lastMsg);
-//                            holder.binding.msgTime.setText(dateFormat.format(new Date(time)));
 
+                            if (timePointer != null) {
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+                                long time = timePointer;
+                                holder.binding.msgTime.setText(dateFormat.format(new Date(time)));
+                            } else {
+                                holder.binding.msgTime.setText("");
+                            }
                         } else {
                             holder.binding.lastMsg.setText("Tap to chat");
                             holder.binding.msgTime.setText("");
@@ -74,7 +79,6 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
 
                     @Override
                     public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
                     }
                 });
 
