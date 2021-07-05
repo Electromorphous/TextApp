@@ -3,13 +3,16 @@ package com.example.textapp.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.textapp.R;
 import com.example.textapp.Models.User;
 import com.example.textapp.Adapters.UsersAdapter;
 import com.example.textapp.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -27,10 +30,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+//        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
         database = FirebaseDatabase.getInstance();
         users = new ArrayList<>();
@@ -45,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
                 for(DataSnapshot snapshot1 : snapshot.getChildren()) {
                     User user = snapshot1.getValue(User.class);
-                    users.add(user);
+                    assert user != null;
+                    if(!user.getUid().equals(FirebaseAuth.getInstance().getUid()))
+                        users.add(user);
                 }
                 usersAdapter.notifyDataSetChanged();
             }
